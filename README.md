@@ -1,2 +1,2 @@
-# streamagame
-Core repository for the Stream-A-Game mobile cloud gaming project
+# Stream-A-Game
+Stream-A-Game is a mobile open-source cloud gaming system, which runs virtualized instances of the Android Open Source Project (AOSP) mobile operating system in the cloud or in VirtualBox and delivers their output in real time to clients running a lightweight display software. The project is composed of multiple sub-projects, of which the notable ones are adapted versions of the Android-x86 and GamingAnywhere.
