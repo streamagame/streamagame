@@ -1,3 +1,3 @@
 [submodule "gaminganywhere"]
-	path = gaminganywhere
+	path = streaming
 	url = https://github.com/streamagame/gaminganywhere.git
