@@ -38,7 +38,7 @@ ANYMISSING=0
 
 for p in $DEPENDENCIES; do
 	echo -n "Checking for $p ... "
-	if dpkg-query -l $p > /dev/null; then
+	if dpkg-query -l $p > /dev/null 2>&1; then
 		echo "yes"
 	else
 		ANY_MISSING=1
