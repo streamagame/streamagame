@@ -41,12 +41,12 @@ for p in $DEPENDENCIES; do
 	if dpkg-query -l $p > /dev/null 2>&1; then
 		echo "yes"
 	else
-		ANY_MISSING=1
+		ANYMISSING=1
 		echo "no!"
 	fi
 done
 
-if [ $ANYMISSING=1 ]; then
+if [ $ANYMISSING == 1 ]; then
 	echo "Please install the missing dependencies."
 	exit 1;
 fi
@@ -59,24 +59,24 @@ echo "Building compute component (Android) ..."
 mkdir compute/
 cd compute
 echo "- Initializing local repository"
-repo init -u https://github.com/streamagame/streamagame-aosp-manifest.git -b streamagame-lollipop-x86 && exit 1
+repo init -u https://github.com/streamagame/streamagame-aosp-manifest.git -b streamagame-lollipop-x86 || exit 1
 echo "- Downloading sources"
-repo sync && exit 1
+repo sync || exit 1
 echo "- Building ISO image from source"
 . build/envsetup.sh
 lunch android_x86-userdebug
 export INIT_BOOTCHART=true
-make -j8 iso_img && exit 1
+make -j8 iso_img || exit 1
 
 # Rendering component
 
 echo "Building rendering component ..."
 lunch sdk-eng
 export EMUGL_BUILD_DEBUG=1
-./external/qemu/distrib/package-release.sh --package-dir=$PWD/../rendering/ --system=linux --verbose && exit 1
+./external/qemu/distrib/package-release.sh --package-dir=$PWD/../rendering/ --system=linux --verbose || exit 1
 
 # Streaming component
 
 echo "Building streaming component (GamingAnywhere) ..."
 cd streaming/
-./build.posix.sh && exit 1
+./build.posix.sh || exit 1
