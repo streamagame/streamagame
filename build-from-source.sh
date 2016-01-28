@@ -29,8 +29,7 @@ DEPENDENCIES="git \
 	ccache \
 	libxml2-utils \
 	xsltproc \
-	unzip \
-	repo"
+	unzip"
 
 echo "Checking if all dependencies are installed:"
 
@@ -52,6 +51,12 @@ if [ $ANYMISSING == 1 ]; then
 fi
 
 echo "All dependencies seem to be there. Lets get started."
+
+# Download repo tool
+mkdir bin/
+curl https://storage.googleapis.com/git-repo-downloads/repo > bin/repo
+chmod +x bin/repo
+PATH="$PATH:$(pwd)/bin"
 
 # Compute component
 
