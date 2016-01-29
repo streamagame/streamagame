@@ -53,15 +53,17 @@ fi
 echo "All dependencies seem to be there. Lets get started."
 
 # Download repo tool
-mkdir bin/
-curl https://storage.googleapis.com/git-repo-downloads/repo > bin/repo
-chmod +x bin/repo
+mkdir -p bin/
+if [ ! -e bin/repo ]; then
+	curl https://storage.googleapis.com/git-repo-downloads/repo > bin/repo || exit 1;
+	chmod +x bin/repo
+fi
 PATH="$PATH:$(pwd)/bin"
 
 # Compute component
 
 echo "Building compute component (Android) ..."
-mkdir compute/
+mkdir -p compute/
 cd compute
 echo "- Initializing local repository"
 repo init -u https://github.com/streamagame/streamagame-aosp-manifest.git -b streamagame-lollipop-x86 || exit 1
