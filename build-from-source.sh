@@ -74,16 +74,26 @@ echo "- Building ISO image from source"
 lunch android_x86-userdebug
 export INIT_BOOTCHART=true
 make -j8 iso_img || exit 1
+mv out/target/product/x86/android_x86.iso ../bin/streamagame-compute.iso
 
 # Rendering component
 
 echo "Building rendering component ..."
 lunch sdk-eng
 export EMUGL_BUILD_DEBUG=1
-./external/qemu/distrib/package-release.sh --package-dir=$PWD/../rendering/ --system=linux --verbose || exit 1
+./external/qemu/distrib/package-release.sh --package-prefix=streamagame --revision=renderer --package-dir=$PWD/../rendering --system=linux --verbose || exit 1
+cd ../rendering
+tar xjf streamagame-renderer-linux.tar.bz2
+mv streamagame-renderer/tools/lib ../bin/
+mv streamagame-renderer/tools/streamagame-renderer* ../bin/
+rm -rf streamagame-renderer/
+cd ..
 
 # Streaming component
 
 echo "Building streaming component (GamingAnywhere) ..."
 cd streaming/
 ./build.posix.sh || exit 1
+mv bin/ga-hook-gl.so ../bin
+mv bin/libga.so ../bin
+mv bin/ga-server-event-driven ../bin/streamagame-streamer
