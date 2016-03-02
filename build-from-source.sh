@@ -96,4 +96,7 @@ cd streaming/
 ./build.posix.sh || exit 1
 mv bin/ga-hook-gl.so ../bin
 mv bin/libga.so ../bin
+mkdir -p ../bin/mod/
+mv bin/mod/* ../bin/mod/
 mv bin/ga-server-event-driven ../bin/streamagame-streamer
+cd ..
